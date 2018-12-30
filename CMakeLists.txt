@@ -1,11 +1,6 @@
-###
-###	@file      sudokupuzzle.h
-###	@author    John Szwast
-###	@date      2013
-###
+cmake_minimum_required(VERSION 2.8)
 
+project(Sudoku)
 
-set (HEADERS src/sudokucell.h src/sudokupuzzle.h src/sudokuslice.h)
-set (SOURCES src/sudokucell.cpp src/sudokupuzzle.cpp src/sudokuslice.cpp)
+add_subdirectory(src/Sudoku)
 
-add_library (sudoku ${SOURCES} ${HEADERS})
