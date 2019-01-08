@@ -15,6 +15,10 @@ namespace Sudoku
   public:
     Slice(const Size& size);
 
+    void assignMember(int index, Cell& cell);
+
+    void eliminatePossibility(int possibility, Cell* source);
+
   private:
 
     std::vector<int> _possibilities;

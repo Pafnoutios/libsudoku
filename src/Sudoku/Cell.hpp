@@ -19,6 +19,13 @@ namespace Sudoku
 
     Cell(const Size& size);
 
+    void assignMembership(SliceType index, Slice& slice);
+
+    void eliminatePossibility(int possibility);
+    void markValue(int value);
+
+    int value() const { return _value; }
+
   private:
 
     std::vector<int> _possibilities;
