@@ -1,4 +1,4 @@
-#include "Sudoku/Grid.hpp"
+#include "Sudoku/Puzzle.hpp"
 
 #include <iostream>
 #include <vector>
@@ -15,7 +15,7 @@ int main()
   // +--+--+
   std::vector<int> a = {-1, -1, 2, -1,  -1, -1, 1, 3,  0, 2, -1, -1,  -1, 1, -1, -1};
 
-  Sudoku::Grid p(2, a.cbegin(), a.cend());
+  Sudoku::Puzzle p(2, a.cbegin(), a.cend());
   auto b = p.values();
 
   for (auto v : b)

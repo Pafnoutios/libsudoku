@@ -1,5 +1,7 @@
 #include "Grid.hpp"
 
+#include "SliceType.hpp"
+
 
 std::vector<int> Sudoku::Grid::values() const
 {
