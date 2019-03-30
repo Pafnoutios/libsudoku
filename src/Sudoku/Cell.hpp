@@ -26,6 +26,10 @@ namespace Sudoku
 
     int value() const { return _value; }
 
+    bool isMarked() const noexcept { return _marked; }
+    std::size_t numPossibilities() const noexcept { return _possibilities.size(); }
+    std::vector<int> const& possibilities() const noexcept { return _possibilities; }
+
   private:
 
     std::vector<int> _possibilities;

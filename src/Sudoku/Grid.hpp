@@ -20,6 +20,9 @@ namespace Sudoku
     std::vector<int> values() const;
 
   private:
+
+    friend class Solver;
+
     void assignMemberships();
 
     Size _size;

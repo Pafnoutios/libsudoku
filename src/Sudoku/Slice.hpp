@@ -19,6 +19,8 @@ namespace Sudoku
 
     void eliminatePossibility(int possibility, Cell* source);
 
+    bool isFilled() const noexcept { return _possibilities.empty(); }
+
   private:
 
     std::vector<int> _possibilities;

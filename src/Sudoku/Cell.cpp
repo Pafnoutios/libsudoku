@@ -6,7 +6,7 @@
 
 
 Sudoku::Cell::Cell(const Size & size)
-  : _possibilities{size[iBlock]}
+  : _possibilities(size[iBlock])
 {
   std::iota(_possibilities.begin(), _possibilities.end(), 0);
 }
@@ -26,12 +26,15 @@ void Sudoku::Cell::eliminatePossibility(int possibility)
 
 void Sudoku::Cell::markValue(int value)
 {
-  _possibilities.clear();
-  _marked = true;
-  _value = value;
-
-  for (auto slice : _memberships)
+  if (value != -1)
   {
-    slice->eliminatePossibility(value, this);
+    _possibilities.clear();
+    _marked = true;
+    _value = value;
+
+    for (auto slice : _memberships)
+    {
+      slice->eliminatePossibility(value, this);
+    }
   }
 }
