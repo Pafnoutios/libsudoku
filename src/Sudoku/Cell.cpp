@@ -18,6 +18,12 @@ void Sudoku::Cell::assignMembership(SliceType index, Slice & slice)
 }
 
 
+bool Sudoku::Cell::isPossible(int i) const
+{
+	return std::find(_possibilities.cbegin(), _possibilities.cend(), i) != _possibilities.cend();
+}
+
+
 void Sudoku::Cell::eliminatePossibility(int possibility)
 {
   _possibilities.erase(std::remove(_possibilities.begin(), _possibilities.end(), possibility), _possibilities.end());

@@ -29,3 +29,12 @@ void Sudoku::Slice::eliminatePossibility(int possibility, Cell * source)
     }
   }
 }
+
+
+std::vector<Sudoku::Cell*> Sudoku::Slice::wherePossible(int i) const
+{
+	std::vector<Cell*> possibilities;
+	std::copy_if(_members.begin(), _members.end(), std::back_inserter(possibilities),
+		[i](Cell const* cell) { return cell->isPossible(i); });
+	return possibilities;
+}

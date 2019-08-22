@@ -21,6 +21,9 @@ namespace Sudoku
 
     bool isFilled() const noexcept { return _possibilities.empty(); }
 
+	std::vector<int> possibilities() const { return _possibilities; }
+	std::vector<Cell*> wherePossible(int i) const;
+
   private:
 
     std::vector<int> _possibilities;

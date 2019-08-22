@@ -18,9 +18,15 @@ namespace Sudoku
 
     /**
     \brief  Marks one cell with a naked single.
-    \return If it found a naked single to mark.
+    \return Whether it found a naked single to mark, i.e. keep looking for more.
     */
     bool nakedSingle();
+
+	/**
+	 *	\brief	Marks one cell with a hidden single.
+	 *	\return	Whether it found a hidden single to mark, i.e. keep looking for more.
+	 */
+	bool hiddenSingle();
 
   private:
 

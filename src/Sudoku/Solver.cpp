@@ -36,12 +36,33 @@ bool Sudoku::Solver::nakedSingle()
   {
     cell->markValue(cell->possibilities()[0]);
     removeMarkedCells();
+	removeFilledSlices();
     return true;
   }
   else
   {
     return false;
   }
+}
+
+
+bool Sudoku::Solver::hiddenSingle()
+{
+	for (auto slice : _unfilledSlices)
+	{
+		for (auto i : slice->possibilities())
+		{
+			auto cells = slice->wherePossible(i);
+			if (cells.size() == 1)
+			{
+				cells[0]->markValue(i);
+				removeMarkedCells();
+				removeFilledSlices();
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 
