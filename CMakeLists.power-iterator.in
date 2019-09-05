@@ -1,0 +1,13 @@
+cmake_minimum_required(VERSION 2.8.2)
+
+project(power-iterator-download NONE)
+
+include(ExternalProject)
+ExternalProject_Add(power-iterator
+  GIT_REPOSITORY    https://github.com/Pafnoutios/power-iterator.git
+  GIT_TAG           origin/master
+  SOURCE_DIR        "${CMAKE_CURRENT_BINARY_DIR}/power-iterator-src"
+  BINARY_DIR        "${CMAKE_CURRENT_BINARY_DIR}/power-iterator-build"
+  INSTALL_DIR       "${CMAKE_CIRRENT_BINARY_DIR}/power-iterator-install"
+  CMAKE_ARGS        "-DCMAKE_INSTALL_PREFIX=../power-iterator-install"
+)

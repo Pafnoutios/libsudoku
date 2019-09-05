@@ -5,14 +5,14 @@
 #include <numeric>
 
 
-Sudoku::Cell::Cell(const Size & size)
+Sudoku::Cell::Cell(const Size& size)
   : _possibilities(size[iBlock])
 {
   std::iota(_possibilities.begin(), _possibilities.end(), 0);
 }
 
 
-void Sudoku::Cell::assignMembership(SliceType index, Slice & slice)
+void Sudoku::Cell::assignMembership(SliceType index, Slice& slice)
 {
   _memberships[index] = &slice;
 }
@@ -20,7 +20,7 @@ void Sudoku::Cell::assignMembership(SliceType index, Slice & slice)
 
 bool Sudoku::Cell::isPossible(int i) const
 {
-	return std::find(_possibilities.cbegin(), _possibilities.cend(), i) != _possibilities.cend();
+  return std::find(_possibilities.cbegin(), _possibilities.cend(), i) != _possibilities.cend();
 }
 
 

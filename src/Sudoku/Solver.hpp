@@ -22,16 +22,24 @@ namespace Sudoku
     */
     bool nakedSingle();
 
-	/**
-	 *	\brief	Marks one cell with a hidden single.
-	 *	\return	Whether it found a hidden single to mark, i.e. keep looking for more.
-	 */
-	bool hiddenSingle();
+    /**
+     *	\brief	Marks one cell with a hidden single.
+     *	\return	Whether it found a hidden single to mark, i.e. keep looking for more.
+     */
+    bool hiddenSingle();
+
+    /*
+     *  \brief  Marks a naked tuple, clearing the rest of the possibilities.
+     *  \return Whether a naked tuple was found and marked.
+     */
+    bool nakedTuple(int n);
 
   private:
 
     void removeMarkedCells();
     void removeFilledSlices();
+
+    bool nakedTuple(Slice&, int n);
 
     Grid& _grid;
 

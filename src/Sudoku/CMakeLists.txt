@@ -16,3 +16,4 @@ set (SOURCES
 )
 
 add_library (sudoku ${SOURCES} ${HEADERS})
+target_link_libraries (sudoku PowerIterators)

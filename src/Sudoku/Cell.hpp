@@ -21,7 +21,7 @@ namespace Sudoku
 
     void assignMembership(SliceType index, Slice& slice);
 
-	bool isPossible(int i) const;
+    bool isPossible(int i) const;
     void eliminatePossibility(int possibility);
     void markValue(int value);
 
