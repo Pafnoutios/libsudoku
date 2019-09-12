@@ -18,6 +18,7 @@ namespace Sudoku
     Grid(int rank, FwdIt first, FwdIt last);
 
     std::vector<int> values() const;
+    Size size() const { return _size; }
 
   private:
 

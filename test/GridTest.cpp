@@ -26,6 +26,60 @@ namespace Sudoku
   };
 
 
+  class Pretty
+  {
+  public:
+    Pretty(const Grid& grid) : _grid(grid) {}
+
+    friend std::ostream& operator<<(std::ostream& stream, const Pretty& puzzle)
+    {
+      auto values = puzzle._grid.values();
+      auto it = values.cbegin();
+      auto s = puzzle._grid.size()[iRank];
+      
+      auto hrule = [s, &stream]()
+      {
+        for (int i = 0; i < s; ++i)
+        {
+          stream << '+';
+          for (int j = 0; j < s; ++j)
+          {
+            stream << '-';
+          }
+        }
+        stream << "+\n";
+      };
+
+      for (int i = 0; i < s; ++i)
+      {
+        hrule();
+        for (int j = 0; j < s; ++j)
+        {
+          for (int k = 0; k < s; ++k)
+          {
+            stream << '|';
+            for (int l = 0; l < s; ++l)
+            {
+              stream << Pretty::_alphabet[(*it++) + 1];
+            }
+          }
+          stream << "|\n";
+        }
+      }
+      hrule();
+
+      return stream;
+    }
+
+  private:
+    static const char _alphabet[];
+
+    const Grid& _grid;
+  };
+
+  const char Pretty::_alphabet[] = " 1234567890abcdefghijklmnopqrstuvwxyz";
+
+
   bool solved(Sudoku::Grid const& grid)
   {
     auto values = grid.values();
@@ -37,40 +91,62 @@ namespace Sudoku
 void runSolutions(int rank, const std::vector<int>& values)
 {
   Sudoku::Grid p1(rank, values.cbegin(), values.cend());
-  std::cout << "      Initial: " << Sudoku::Values(p1) << "\n";
-
-  bool eitherSingle = false;
+  //std::cout << "      Initial: " << Sudoku::Values(p1) << "\n";
+  std::cout << Sudoku::Pretty(p1) << "\n"
+    << "               ||\n";
 
   Sudoku::Solver s1(p1);
+  bool naked = false;
   while (s1.nakedSingle())
   {
-    std::cout << " Naked Single: "<< Sudoku::Values(p1) << "\n";
+    //std::cout << " Naked Single: "<< Sudoku::Values(p1) << "\n";
+    if (!naked)
+    {
+      std::cout << " Naked Single  ||\n";
+      naked = true;
+    }
   }
-
-  eitherSingle = solved(p1);
+  std::cout << "              \\  /\n"
+    << "               \\/\n"
+    << Sudoku::Pretty(p1) << "\n";
 
   std::cout << "\n";
 
   Sudoku::Grid p2(rank, values.cbegin(), values.cend());
-  std::cout << "      Initial: " << Sudoku::Values(p2) << "\n";
+  //std::cout << "      Initial: " << Sudoku::Values(p2) << "\n";
+  std::cout << Sudoku::Pretty(p2) << "\n"
+    << "               ||\n";
 
   Sudoku::Solver s2(p2);
+  bool hidden = false;
   while (s2.hiddenSingle())
   {
-    std::cout << "Hidden Single: " << Sudoku::Values(p2) << "\n";
+    //std::cout << "Hidden Single: " << Sudoku::Values(p2) << "\n";
+    if (!hidden)
+    {
+      std::cout << "Hidden Single  ||\n";
+      hidden = true;
+    }
   }
+  std::cout << "              \\  /\n"
+    << "               \\/\n"
+    << Sudoku::Pretty(p2) << "\n";
 
-  eitherSingle = eitherSingle || solved(p2);
+  bool eitherSingle = solved(p1) || solved(p2);
 
   std::cout << "\n";
 
   if (!eitherSingle)
   {
     Sudoku::Grid p3(rank, values.cbegin(), values.cend());
-    std::cout << "      Initial: " << Sudoku::Values(p3) << "\n";
+    //std::cout << "      Initial: " << Sudoku::Values(p3) << "\n";
+    std::cout << Sudoku::Pretty(p3) << "\n"
+      << "               ||\n";
 
     Sudoku::Solver s3(p3);
     bool done = false;
+    std::vector<bool> naked(8);
+    std::vector<bool> hidden(8);
     while (!done)
     {
       eitherSingle = true;
@@ -80,12 +156,22 @@ void runSolutions(int rank, const std::vector<int>& values)
         while (s3.nakedSingle())
         {
           eitherSingle = true;
-          std::cout << " Naked Single: " << Sudoku::Values(p3) << "\n";
+          //std::cout << " Naked Single: " << Sudoku::Values(p3) << "\n";
+          if (!naked[1])
+          {
+            std::cout << " Naked Single  ||\n";
+            naked[1] = true;
+          }
         }
         while (s3.hiddenSingle())
         {
           eitherSingle = true;
-          std::cout << "Hidden Single: " << Sudoku::Values(p3) << "\n";
+          //std::cout << "Hidden Single: " << Sudoku::Values(p3) << "\n";
+          if (!hidden[1])
+          {
+            std::cout << "Hidden Single  ||\n";
+            hidden[1] = true;
+          }
         }
       }
 
@@ -94,11 +180,20 @@ void runSolutions(int rank, const std::vector<int>& values)
       {
         if ((markedATuple = s3.nakedTuple(size)))
         {
-          std::cout << "  Naked " << size << "-ple: " << Sudoku::Values(p3) << "\n";
+          //std::cout << "  Naked " << size << "-ple: " << Sudoku::Values(p3) << "\n";
+          if (!naked[size])
+          {
+            std::cout << "  Naked " << size << "-ple  ||\n";
+            naked[size] = true;
+          }
         }
         done = (size == rank);
       }
     }
+    std::cout << "              \\  /\n"
+      << "               \\/\n"
+      << Sudoku::Pretty(p3) << "\n";
+
 
     std::cout << "\n";
   }
